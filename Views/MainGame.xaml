@@ -1,0 +1,92 @@
+﻿<UserControl x:Class="WPFGAME.Views.MainGame"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFGAME.ViewModels"
+             xmlns:views="clr-namespace:WPFGAME.Views"
+             xmlns:ioc="clr-namespace:WPFGAME"
+             d:DataContext="{d:DesignInstance Type=local:GameViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ioc:IoC x:Key="IoC"/>
+        <Style TargetType="TabControl">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="TabStripPlacement" Value="Left"/>
+        </Style>
+
+        <Style TargetType="TabItem">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border x:Name="TabItemBorder" Background="Black" BorderBrush="DarkGray" BorderThickness="1" CornerRadius="10,0,0,10">
+                            <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="12,2,12,2"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="TabItemBorder" Property="Background" Value="DarkSlateGray"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="TabItemBorder" Property="Background" Value="SlateGray"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- For Username and Level -->
+            <RowDefinition Height="*"/>
+            <!-- For TabControl -->
+            <RowDefinition Height="Auto"/>
+            <!-- For Save Button -->
+        </Grid.RowDefinitions>
+
+        <!-- Username and Level Display -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <!--<TextBlock Text="{Binding Source={StaticResource IoC}, Path=GameInfoDal.GameInfoModel.Username,NotifyOnTargetUpdated=True}" FontSize="16" FontWeight="Bold" Margin="5,0"/>-->
+            <TextBlock Text="{Binding GameInfo.Username}" FontSize="16" FontWeight="Bold" Margin="5,0"/>
+            <TextBlock Text="Level:" FontSize="16" FontWeight="Bold" Margin="10,0"/>
+            <TextBlock Text="{Binding GameInfo.CharacterLevel}" FontSize="16" FontWeight="Bold"/>
+        </StackPanel>
+
+        <!-- Main Content with Tabs -->
+        <TabControl Grid.Row="1" TabStripPlacement="Left">
+            <TabControl.Resources>
+
+            </TabControl.Resources>
+            <TabItem Header="Shop">
+                <views:Shop/>
+            </TabItem>
+            <TabItem Header="Inventory">
+                <views:Inventory/>
+            </TabItem>
+            <TabItem Header="Farming">
+                <views:Farming/>
+            </TabItem>
+            <TabItem Header="Forest">
+                <views:Forest/>
+            </TabItem>
+            <TabItem Header="Mining">
+                <views:Mining/>
+            </TabItem>
+        </TabControl>
+
+        <!-- Save Button -->
+        <Button Grid.Row="2" Content="Save" HorizontalAlignment="Center" Margin="10" Command="{Binding SaveCommand}"/>
+    </Grid>
+</UserControl>
