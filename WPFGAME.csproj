@@ -95,6 +95,7 @@
     <Compile Include="Models\Concrete\InventoryItem.cs" />
     <Compile Include="Models\Concrete\GameInfoModel.cs" />
     <Compile Include="Models\Concrete\ShopItem.cs" />
+    <Compile Include="Models\Concrete\ShopItemEnum.cs" />
     <Compile Include="TreeType.cs" />
     <Compile Include="IoC.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />

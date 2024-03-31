@@ -54,7 +54,8 @@ namespace WPFGAME.Dal
                     Row INTEGER NOT NULL,
                     Column INTEGER NOT NULL,
                     Username TEXT NOT NULL,
-                    CharacterLevel INTEGER NOT NULL
+                    CharacterLevel INTEGER NOT NULL,
+                    CharacterMoney INTEGER NOT NULL
                 );";
                         using (var createTableCommand = new SQLiteCommand(createTableQuery, connection))
                         {
@@ -73,7 +74,7 @@ namespace WPFGAME.Dal
             using (var connection = new SQLiteConnection(_connectionString))
             {
                 connection.Open();
-                string sql = "INSERT INTO GameInfo (Row, Column, Username, CharacterLevel) VALUES (@Row, @Column, @Username, @CharacterLevel)";
+                string sql = "INSERT INTO GameInfo (Row, Column, Username, CharacterLevel,CharacterMoney) VALUES (@Row, @Column, @Username, @CharacterLevel, @CharacterMoney)";
 
                 using (var command = new SQLiteCommand(sql, connection))
                 {
@@ -81,7 +82,7 @@ namespace WPFGAME.Dal
                     command.Parameters.AddWithValue("@Column", gameInfo.Column);
                     command.Parameters.AddWithValue("@Username", gameInfo.Username);
                     command.Parameters.AddWithValue("@CharacterLevel", gameInfo.CharacterLevel);
-
+                    command.Parameters.AddWithValue("@CharacterMoney", gameInfo.CharacterMoney);
                     command.ExecuteNonQuery();
                 }
             }
@@ -107,7 +108,8 @@ namespace WPFGAME.Dal
                                 Row = Convert.ToInt32(reader["Row"]),
                                 Column = Convert.ToInt32(reader["Column"]),
                                 Username = reader["Username"].ToString(),
-                                CharacterLevel = Convert.ToInt32(reader["CharacterLevel"])
+                                CharacterLevel = Convert.ToInt32(reader["CharacterLevel"]),
+                                CharacterMoney = Convert.ToInt32(reader["CharacterMoney"])
                             };
                         }
                     }
@@ -122,7 +124,7 @@ namespace WPFGAME.Dal
             using (var connection = new SQLiteConnection(_connectionString))
             {
                 connection.Open();
-                string sql = "UPDATE GameInfo SET Row = @Row, Column = @Column, Username = @Username, CharacterLevel = @CharacterLevel WHERE Id = @Id";
+                string sql = "UPDATE GameInfo SET Row = @Row, Column = @Column, Username = @Username, CharacterMoney = @CharacterMoney WHERE Id = @Id";
 
                 using (var command = new SQLiteCommand(sql, connection))
                 {
@@ -131,6 +133,7 @@ namespace WPFGAME.Dal
                     command.Parameters.AddWithValue("@Column", gameInfo.Column);
                     command.Parameters.AddWithValue("@Username", gameInfo.Username);
                     command.Parameters.AddWithValue("@CharacterLevel", gameInfo.CharacterLevel);
+                    command.Parameters.AddWithValue("@CharacterLevel", gameInfo.CharacterMoney);
 
                     command.ExecuteNonQuery();
                 }

@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using WPFGAME.Commands;
 using WPFGAME.Models;
+using WPFGAME.Models.Concrete;
 using WPFGAME.ViewModels;
 namespace WPFGAME.ViewModels
 {
@@ -9,12 +10,11 @@ namespace WPFGAME.ViewModels
     {
         public ObservableCollection<ShopItem> ShopItems { get; set; }
         public ICommand BuyCommand { get; private set; }
-
         public ShopVM()
         {
             ShopItems = new ObservableCollection<ShopItem>
         {
-            new ShopItem { Name = "Extra Slot", Price = 100 },
+            new ShopItem { Name = "Extra Slot", Price = 100,ShopItemEnum=ShopItemEnum.ExtraSlot },
             new ShopItem { Name = "Shield", Price = 150 },
             // Add more items...
         };
@@ -24,8 +24,14 @@ namespace WPFGAME.ViewModels
 
         private void BuyItem(ShopItem item)
         {
-            // Handle the item purchase logic here
-            // For example, deduct the price from the user's currency, add the item to the user's inventory, etc.
+            switch (item.ShopItemEnum)
+            {
+                case ShopItemEnum.ExtraSlot:
+                    IoC.GameInfoDal.GameInfoModel.Row++;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 

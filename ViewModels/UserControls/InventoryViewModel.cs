@@ -18,7 +18,7 @@ namespace WPFGAME.ViewModels
         private GameInfoModel _gameInfoModel;
         public GameInfoModel GameInfoModel
         {
-            get => _gameInfoModel;
+            get => IoC.GameInfoDal.GameInfoModel;
             set
             {
                 if (_gameInfoModel != value)

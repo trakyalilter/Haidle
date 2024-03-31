@@ -15,8 +15,8 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" Margin="10">
-                        <TextBlock Text="{Binding Name}" Margin="10"/>
-                        <TextBlock Text="{Binding Price, StringFormat='Price: {0:C}'}" Margin="10"/>
+                        <TextBlock Foreground="Black" Text="{Binding Name}" Margin="10"/>
+                        <TextBlock Foreground="Black" Text="{Binding Price, StringFormat='Price: {0:C}'}" Margin="10"/>
                         <Button Content="Buy" Command="{Binding DataContext.BuyCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}"/>
                     </StackPanel>
                 </DataTemplate>

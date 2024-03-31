@@ -58,6 +58,7 @@ namespace WPFGAME.ViewModels
         private void CloseWindow()
         {
             IoC.ForestDal.UpdateForestStatsAsync(IoC.ForestDal.ForestStatsModel);
+            IoC.GameInfoDal.UpdateGameInfo(1,IoC.GameInfoDal.GameInfoModel);
             Application.Current.Shutdown();
         }
     }

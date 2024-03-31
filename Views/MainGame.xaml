@@ -8,7 +8,7 @@
              xmlns:ioc="clr-namespace:WPFGAME"
              d:DataContext="{d:DesignInstance Type=local:GameViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="1080" d:DesignWidth="1920">
     <UserControl.Resources>
         <ioc:IoC x:Key="IoC"/>
         <Style TargetType="TabControl">
@@ -36,10 +36,10 @@
                                 <Setter TargetName="TabItemBorder" Property="Background" Value="DarkSlateGray"/>
                                 <Setter Property="Foreground" Value="White"/>
                             </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
+                            <!--<Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="TabItemBorder" Property="Background" Value="SlateGray"/>
                                 <Setter Property="Foreground" Value="White"/>
-                            </Trigger>
+                            </Trigger>-->
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
@@ -49,20 +49,34 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- For Username and Level -->
+            <!-- Header area for Username, Level, and Save button -->
             <RowDefinition Height="*"/>
-            <!-- For TabControl -->
-            <RowDefinition Height="Auto"/>
-            <!-- For Save Button -->
+            <!-- Main content area for Tabs -->
         </Grid.RowDefinitions>
 
-        <!-- Username and Level Display -->
-        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-            <!--<TextBlock Text="{Binding Source={StaticResource IoC}, Path=GameInfoDal.GameInfoModel.Username,NotifyOnTargetUpdated=True}" FontSize="16" FontWeight="Bold" Margin="5,0"/>-->
-            <TextBlock Text="{Binding GameInfo.Username}" FontSize="16" FontWeight="Bold" Margin="5,0"/>
-            <TextBlock Text="Level:" FontSize="16" FontWeight="Bold" Margin="10,0"/>
-            <TextBlock Text="{Binding GameInfo.CharacterLevel}" FontSize="16" FontWeight="Bold"/>
-        </StackPanel>
+        <!-- Header with Username, Level, and Save button -->
+        <Border Grid.Row="0" Background="#f0f0f0" Padding="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <!-- For Username and Level -->
+                    <ColumnDefinition Width="Auto"/>
+                    <!-- For Save button -->
+                </Grid.ColumnDefinitions>
+
+                <!-- Username and Level -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <TextBlock Text="{Binding GameInfo.Username}" FontSize="16" FontWeight="Bold"/>
+                    <TextBlock Text="Level:" FontSize="16" FontWeight="Bold" Margin="20,0"/>
+                    <TextBlock Text="{Binding GameInfo.CharacterLevel}" FontSize="16" FontWeight="Bold"/>
+                    <TextBlock Text="Money:" FontSize="16" FontWeight="Bold" Margin="20,0"/>
+                    <TextBlock Text="{Binding GameInfo.CharacterMoney}" FontSize="16" FontWeight="Bold"/>
+                </StackPanel>
+
+                <!-- Save Button -->
+                <Button Grid.Column="1" Content="Save" Command="{Binding SaveCommand}" Margin="5,0" VerticalAlignment="Center"/>
+            </Grid>
+        </Border>
 
         <!-- Main Content with Tabs -->
         <TabControl Grid.Row="1" TabStripPlacement="Left">
@@ -85,8 +99,5 @@
                 <views:Mining/>
             </TabItem>
         </TabControl>
-
-        <!-- Save Button -->
-        <Button Grid.Row="2" Content="Save" HorizontalAlignment="Center" Margin="10" Command="{Binding SaveCommand}"/>
     </Grid>
 </UserControl>

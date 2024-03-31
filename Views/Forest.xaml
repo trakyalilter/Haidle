@@ -25,6 +25,8 @@
 
         <!-- ToggleButton Style -->
         <Style TargetType="ToggleButton">
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Height" Value="60"/>
             <Setter Property="Background" Value="#8A6D3B"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontWeight" Value="Bold"/>

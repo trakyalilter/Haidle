@@ -36,5 +36,8 @@ namespace WPFGAME.Models.Concrete
 
         private int _characterLevel;
         public int CharacterLevel { get { return _characterLevel; } set { _characterLevel = value; OnPropertyChanged(nameof(CharacterLevel)); } }
+
+        private int _characterMoney;
+        public int CharacterMoney { get { return _characterMoney; } set { _characterMoney = value; OnPropertyChanged(nameof(CharacterMoney)); } }
     }
 }

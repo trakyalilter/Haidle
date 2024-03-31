@@ -9,7 +9,9 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Background="AliceBlue"
-        Height="435" Width="800">
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        Height="1080" Width="1920">
     <Window.DataContext>
         <viewModels:MainViewModel/>
     </Window.DataContext>
