@@ -133,7 +133,7 @@ namespace WPFGAME.Dal
                     command.Parameters.AddWithValue("@Column", gameInfo.Column);
                     command.Parameters.AddWithValue("@Username", gameInfo.Username);
                     command.Parameters.AddWithValue("@CharacterLevel", gameInfo.CharacterLevel);
-                    command.Parameters.AddWithValue("@CharacterLevel", gameInfo.CharacterMoney);
+                    command.Parameters.AddWithValue("@CharacterMoney", gameInfo.CharacterMoney);
 
                     command.ExecuteNonQuery();
                 }

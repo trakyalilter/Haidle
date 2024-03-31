@@ -3,10 +3,99 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:WPFGAME.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Button Content="Mining"></Button>
+             xmlns:viewmodels="clr-namespace:WPFGAME.ViewModels" 
+    mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance Type=viewmodels:MiningViewModel}"
+    
+    d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <!-- Mining Background -->
+        <LinearGradientBrush x:Key="MiningBackground" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#4B4E6D" Offset="0"/>
+            <GradientStop Color="#2F3441" Offset="1"/>
+        </LinearGradientBrush>
+
+        <!-- ProgressBar Style for Mining Progress -->
+        <Style TargetType="ProgressBar">
+            <Setter Property="Foreground" Value="#DAA520"/>
+            <!-- Gold color for progress bar -->
+            <Setter Property="Background" Value="#696969"/>
+            <!-- DimGray color for the background of the progress bar -->
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#D3D3D3"/>
+            <!-- LightGray border for slight contrast -->
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+
+        <!-- ToggleButton Style for Mining Activities -->
+        <Style TargetType="ToggleButton">
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Height" Value="60"/>
+            <Setter Property="Background" Value="#6E7B8B"/>
+            <!-- Light Slate Gray as the base color -->
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="BorderBrush" Value="#B0C4DE"/>
+            <!-- LightSteelBlue for a bit of shine -->
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#2E8B57"/>
+                                <!-- SeaGreen when selected, resembling finding a gem -->
+                                <Setter Property="Foreground" Value="Ivory"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#4682B4"/>
+                                <!-- SteelBlue when hovered for a cool effect -->
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Additional styles for text, buttons, or other elements can be added here -->
+    </UserControl.Resources>
+
+
+    <Grid Background="{StaticResource MiningBackground}">
+        <!-- Use a suitable resource for the background -->
+
+        <Popup x:Name="MiningCompletionPopup" VerticalOffset="150" Placement="Center" AllowsTransparency="True" PopupAnimation="Fade" Width="100" Height="50">
+            <Border CornerRadius="5" Background="#555" Opacity="0.7">
+                <TextBlock Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Text="{Binding YourCompletionMessage}"/>
+            </Border>
+        </Popup>
+
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="{Binding MiningSkillLevelText}" HorizontalAlignment="Center" FontWeight="Bold" Foreground="White"/>
+            <TextBlock Text="{Binding MiningExperienceText}" HorizontalAlignment="Center" FontWeight="Bold" Foreground="White"/>
+            <ProgressBar Height="30" Maximum="100" Value="{Binding MiningProgressValue}"></ProgressBar>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <!-- Define your mining activities as ToggleButtons or other suitable controls -->
+                <ToggleButton Grid.Column="0" Grid.Row="0" Content="Iron Ore" IsChecked="{Binding IsIronOreSelected}"/>
+                <ToggleButton Grid.Column="1" Grid.Row="0" Content="Gold Ore" IsChecked="{Binding IsGoldOreSelected}"/>
+                <ToggleButton Grid.Column="0" Grid.Row="1" Content="Diamond" IsChecked="{Binding IsDiamondSelected}"/>
+                <ToggleButton Grid.Column="1" Grid.Row="1" Content="Emerald" IsChecked="{Binding IsEmeraldSelected}"/>
+            </Grid>
+        </StackPanel>
+
     </Grid>
 </UserControl>
